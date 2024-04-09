@@ -11,7 +11,7 @@ export default function Product(){
         <SkeletonCard isLoading/>
         <SkeletonCard isLoading/>
         <SkeletonCard isLoading/>
-        <SkeletonCard isLoading/>
+        <SkeletonCard isLoading/> 
         <SkeletonCard isLoading/>
         <SkeletonCard isLoading/>
         <SkeletonCard isLoading/>
