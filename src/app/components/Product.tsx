@@ -2,13 +2,15 @@ import { ProductType } from "@/types/ProductType";
 import ProductImage from "./ProductImage";
 import {formatPrice} from '@/lib/utils';
 import AddCart from '@/app/components/AddCart';
+import Link from "next/link";
 
 type ProductProps ={
     product: ProductType
 }
 export default function Product({product}: ProductProps) {
     return (
-        <div className="flex flex-col shadow-lg h-96 bg-slate-800 p-5 text-gray-300">
+        <Link href={`/product/${product.id}`}>
+            <div className="flex flex-col shadow-lg h-96 bg-slate-800 p-5 text-gray-300">
             <div className='relative max-h-72 flex-1 '>
                 <ProductImage product={product} fill/>
             </div>
@@ -24,6 +26,8 @@ export default function Product({product}: ProductProps) {
                 </div>
                 <AddCart product={product}/>
             </div>
+        </Link>
+        
     )
 
 }
