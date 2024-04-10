@@ -2,10 +2,17 @@
 import { formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/store";
 import Image from "next/image";
+import CheckoutButton from "./CheckoutButton";
+import Checkout from "./Checkout";
 
 
 export default function CartDrawer(){
     const useStore = useCartStore();
+
+    const totalPrice = useStore.cart.reduce((acc, item)=> {
+        return acc + item.price! *item.quantity!;
+    }, 0)
+
     return (
         <div onClick={()=> useStore.toggleCart()}  className="fixed w-full h-screen bg-black/25 left-0 top-0 z-50">
                         <div onClick={(e)=>e.stopPropagation()} className="absolue bg-slate-600 right-0 bottom-0 w-1/3 h-screen p-8 overflow-y-scroll">
@@ -15,6 +22,9 @@ export default function CartDrawer(){
                         <div className="border-t border-gray-400 my-4">
 
                         </div>
+
+                        {useStore.onCheckout === 'cart' && (
+                        <>
                         {
                             useStore.cart.map((item)=>(
                                 <div key={item.id} className="flex gap-4 py-4">
@@ -38,8 +48,20 @@ export default function CartDrawer(){
                                     </div>
                                     
                                     </div>
-                            ))
-                        }
+                            ))}</>)}
+
+                        {
+                            useStore.cart.length > 0 && useStore.onCheckout === 'cart' && (
+                            <CheckoutButton totalPrice={totalPrice}/>
+                       ) }
+
+                        {
+                            useStore.onCheckout === 'checkout' && (
+                            <Checkout />
+                       ) }
+
+
+                        
                         </div>
                     </div>
     )
